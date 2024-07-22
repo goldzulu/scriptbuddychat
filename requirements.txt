@@ -108,7 +108,7 @@ striprtf==0.0.26
 sympy==1.13.1
 tenacity==8.5.0
 threadpoolctl==3.5.0
-tiktoken==0.5.1
+tiktoken
 tokenizers==0.19.1
 toml==0.10.2
 toolz==0.12.1
