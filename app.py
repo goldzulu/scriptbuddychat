@@ -75,6 +75,9 @@ def clear_chat_history():
     st.session_state["btn_diff"] = False
     st.session_state["btn_rag"] = False
 
+async def response_streamer(response):
+    for token in response:
+        yield f"{token}"
 
 def generate_assistant_response(prompt, chat_engine):
     """Generate assistant response and update token counter."""
@@ -83,10 +86,11 @@ def generate_assistant_response(prompt, chat_engine):
         with st.spinner("I am on it..."):
             if st.session_state.with_cache:
                 response = query_chatengine_cache(prompt, chat_engine)
+                message = {"role": "assistant", "content": response.response, "sources": format_sources(response)}
             else:
                 response = query_chatengine(prompt, chat_engine)
+                message = {"role": "assistant", "content": response.print_response_stream(), "sources": format_sources(response)}
 
-            message = {"role": "assistant", "content": response.response, "sources": format_sources(response)}
             if st.session_state.with_sources:
                 st.info(f'The sources of this response are:\n\n {message["sources"]}')
             st.write(message["content"])
@@ -100,9 +104,11 @@ def query_chatengine_cache(prompt, _chat_engine):
     return _chat_engine.chat(prompt)
 
 
-def query_chatengine(prompt, chat_engine):
+
+async def query_chatengine(prompt, chat_engine):
     """Query chat engine."""	
-    return chat_engine.chat(prompt)
+    response_stream=chat_engine.stream_chat(prompt)
+    return response_stream
 
 
 def format_sources(response):
@@ -148,15 +154,15 @@ def sidebar():
         st.markdown(f'LLM Prompt: {i_tokens} tokens')
         st.markdown(f'LLM Completion: {o_tokens} tokens')
 
-        i_cost = (i_tokens / 1000) * 0.0015
-        o_cost = (o_tokens / 1000) * 0.002
+        i_cost = (i_tokens / 1000) * 0.0005
+        o_cost = (o_tokens / 1000) * 0.0015
         st.markdown('**Cost Estimation: ${0}**'.format(round(i_cost + o_cost, 5)))
         "[OpenAI Pricing](https://openai.com/pricing)"
 
     with st.sidebar.expander("🔧 SETTINGS", expanded=True):
         st.toggle('Cache Results', value=True, key="with_cache")
         st.toggle('Display Sources', value=True, key="with_sources")
-        st.toggle('Streaming', value=False, disabled=True, key="with_streaming")
+        st.toggle('Streaming', value=True, disabled=True, key="with_streaming")
 
     st.sidebar.button('Clear Messages', type="primary", on_click=clear_chat_history) 
     st.sidebar.divider()
@@ -181,7 +187,7 @@ def layout():
     # Load Index
     index, token_counter = load_data()
     if index:
-        chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+        chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True, streaming=True)
 
     # Sample Questions for User input
     user_input_button = None
