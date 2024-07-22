@@ -1,4 +1,4 @@
-[![Open_inStreamlit](https://img.shields.io/badge/Open%20In-Streamlit-red?logo=Streamlit)](https://llamaindexchat.streamlit.app/)
+[![Open_inStreamlit](https://img.shields.io/badge/Open%20In-Streamlit-red?logo=Streamlit)](https://llamaindexdocschat.streamlit.app/)
 [![Python](https://img.shields.io/badge/python-%203.12-blue.svg)](https://www.python.org/)
 [![CodeFactor](https://www.codefactor.io/repository/github/goldzulu/llamaindexdocschat/badge)](https://www.codefactor.io/repository/github/goldzulu/llamaindexdocschat)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/goldzulu/llamaindexdocschat/blob/main/LICENSE)
