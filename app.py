@@ -1,10 +1,8 @@
 """
-Streamlit application that integrates with LlamaIndex and OpenAI's GPT-3.5 to create a conversational interface. 
-Users can ask questions about LlamaIndex Docs, and the application provides relevant answers. 
-The user's OpenAI API key is used to fetch responses from GPT-3.5.
+An app that use AI to roleplay scenarios between main characters of a script.
 
 Author:
-    @dcarpintero : https://github.com/dcarpintero
+    @goldzulu : https://github.com/goldzulu
 """
 
 from llama_index.llms.openai import OpenAI
@@ -19,10 +17,10 @@ from llama_index.core import Settings
 
 
 st.set_page_config(
-    page_title="Chat with LlamaIndex Docs",
+    page_title="Script Buddy Chat",
     page_icon="🦙",
     initial_sidebar_state="expanded",
-    menu_items={"About": "Built by @dcarpintero with Streamlit & LLamaIndex"},
+    menu_items={"About": "An app is a chat assistant that helps screenwriters to come up with materials for their current writing project."},
 )
 
 if 'llm_prompt_tokens' not in st.session_state:

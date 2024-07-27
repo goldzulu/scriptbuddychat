@@ -3,7 +3,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/goldzulu/llamaindexdocschat/badge)](https://www.codefactor.io/repository/github/goldzulu/llamaindexdocschat)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/goldzulu/llamaindexdocschat/blob/main/LICENSE)
 
-# Chat with 🦙 LlamaIndex Docs 🗂️
+# Script Buddy 🗂️
 
 <p align="center">
   <img src="./assets/llamaindexchat.png">
